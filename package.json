@@ -1,0 +1,12 @@
+{
+  "main": "index.html",
+  "name": "ImageTagger",
+  "window": {
+    "frame": false,
+    "toolbar": false
+  },
+  "dependencies": {
+    "bluebird": "^2.9.12",
+    "xml2js": "^0.4.5"
+  }
+}
