@@ -5,6 +5,8 @@ var fs = require('fs');
 var app = angular.module('StarterApp', ['ngMaterial']);
 var bluebird = require('bluebird');
 var xml2js = require('xml2js');
+var _ = require('lodash');
+
 const configFile = 'config.json';
 bluebird.promisifyAll(path);
 bluebird.promisifyAll(fs);
@@ -45,10 +47,13 @@ app.controller('AppCtrl', ['$scope', '$mdSidenav', function($scope, $mdSidenav) 
       e.preventDefault();
 
       for (var i = 0; i < e.dataTransfer.files.length; ++i) {
-        debugger;
-        var xml = "<root>Hello xml2js!</root>"
-        xml2js.parseString(xml, function(err, result) {
-          console.dir(result);
+        fs.readFile(e.dataTransfer.files[i].path, 'utf8', function(err, data) {
+          if (!err) {
+            xml2js.parseString(data, function(err, result) {
+              var events = result.Log.Message.concat(result.Log.Join).concat(result.Log.Leave);
+              debugger;
+            });
+          }
         });
         $scope.$broadcast('folderDropped', e.dataTransfer.files[i].path);
 
